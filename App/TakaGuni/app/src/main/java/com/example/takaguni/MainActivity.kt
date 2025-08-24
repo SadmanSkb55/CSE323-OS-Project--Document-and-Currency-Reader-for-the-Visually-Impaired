@@ -264,3 +264,67 @@ class MainActivity : ComponentActivity(), TextToSpeech.OnInitListener {
         }
     }
 }
+
+/*-----------Experimental----------------------------*/
+/*
+data class CurrencyFeedback(
+    val vibrations: List<Long>,
+    val beeps: List<Long>
+)
+
+private fun getCurrencyFeedback(currencyValue: Int, tts: TextToSpeech): CurrencyFeedback? {
+    return when (currencyValue) {
+        5 -> CurrencyFeedback(
+            vibrations = listOf(100),
+            beeps = listOf(100, 100, 100, 100, 100)
+        )
+        10 -> CurrencyFeedback(
+            vibrations = listOf(100, 150, 100),
+            beeps = listOf(100, 100, 100, 100, 100, 300, 100, 100, 100, 100, 100)
+        )
+        20 -> CurrencyFeedback(
+            vibrations = listOf(100, 150, 100, 150, 100),
+            beeps = listOf(100, 100, 100, 100, 100, 300, 100, 100, 100, 100, 100)
+        )
+        50 -> CurrencyFeedback(
+            vibrations = listOf(100, 150, 100, 150, 100, 150, 100),
+            beeps = listOf(100, 100, 100, 100, 100, 300, 100, 100, 100, 100, 100)
+        )
+        100 -> CurrencyFeedback(
+            vibrations = listOf(300),
+            beeps = listOf(100, 100, 100, 100, 100, 300, 100, 100, 100, 100, 100, 300, 100, 100, 100, 100, 100)
+        )
+        200 -> CurrencyFeedback(
+            vibrations = listOf(300, 150, 300),
+            beeps = listOf(100, 100, 100, 100, 100, 300, 100, 100, 100, 100, 100, 300, 100, 100, 100, 100, 100)
+        )
+        500 -> CurrencyFeedback(
+            vibrations = listOf(300, 150, 300, 150, 300),
+            beeps = listOf(100, 100, 100, 100, 100, 300, 100, 100, 100, 100, 100, 300, 100, 100, 100, 100, 100)
+        )
+        1000 -> CurrencyFeedback(
+            vibrations = listOf(300, 150, 300, 150, 300, 150, 300),
+            beeps = listOf(100, 100, 100, 100, 100, 300, 100, 100, 100, 100, 100, 300, 100, 100, 100, 100, 100, 300, 100, 100, 100, 100, 100)
+        )
+        else -> null
+    }
+}
+
+private suspend fun triggerHapticFeedback(vibrations: List<Long>, vibrator: Vibrator) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        val timings = vibrations.toLongArray()
+        val amplitudes = IntArray(vibrations.size) { VibrationEffect.DEFAULT_AMPLITUDE }
+        vibrator.vibrate(VibrationEffect.createWaveform(timings, amplitudes, -1))
+    } else {
+        vibrator.vibrate(vibrations.toLongArray(), -1)
+    }
+    delay(vibrations.sum() + (vibrations.size - 1) * 150L)
+}
+
+private suspend fun triggerSonificationFeedback(beeps: List<Long>, tts: TextToSpeech) {
+    for (beep in beeps) {
+        tts.playSilentUtterance(beep, TextToSpeech.QUEUE_ADD, null)
+        delay(beep + 100L)
+    }
+}
+ */
